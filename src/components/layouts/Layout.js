@@ -1,6 +1,7 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Redirect, withRouter } from "react-router-dom";
 import { withStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import post1 from './../blog-post.1.md';
 import post2 from './../blog-post.2.md';
@@ -121,35 +122,31 @@ const archives = [
 
 const social = ['GitHub', 'Twitter', 'Facebook'];
 
-export default class Layout extends React.Component {
-    constructor(){
-        super();
-    }
-
-    render(){
-        const classes = styles;
-        return(
-            <React.Fragment>
-                <CssBaseline />
-                
-                <div className={classes.layout}>
-                
-                    <Header classes={classes} sections={sections} />
-                    
-                    <main>
-                        <Router>
-                            <Switch>
-                                <Route exact path="/" component={Blog} />
-                                <Route exact path="/about" component={About} />
-                                <Route exact path="/contact" component={Contact} />
-                                <Route exact path="/topics" component={Topics} />
-                            </Switch>
-                        </Router>
-                    </main>
-
+function Layout(props) {
+  const { classes } = props;
+  return(
+      <React.Fragment>
+          <CssBaseline />
+          <div className={classes.layout}>
+              <Header classes={classes} sections={sections} />
+              <main>
+                <div>
+                    <Switch>
+                      <Route exact path="/" component={() => <Blog classes={classes} />} />
+                      <Route path="/about" component={About} />
+                      <Route path="/contact" component={Contact} />
+                      <Route path="/topics" component={Topics} />
+                    </Switch>
                 </div>
-                <Footer classes={classes} />
-            </React.Fragment>
-        )
-    }
+              </main>
+          </div>
+          <Footer classes={classes} />
+      </React.Fragment>
+  )
 }
+
+Layout.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(Layout);

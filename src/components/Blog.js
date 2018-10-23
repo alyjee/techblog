@@ -121,30 +121,50 @@ const archives = [
 
 const social = ['GitHub', 'Twitter', 'Facebook'];
 
-function Blog(props) {
-  const { classes } = props;
+class Blog extends React.Component {
 
-  return (
-    <React.Fragment>
-      <BannerPost classes={classes} />
-          
-      <Grid container spacing={40} className={classes.cardGrid}>
-        {featuredPosts.map(post => (
-          <FeaturedPost post={post} classes={classes} />
-        ))}
-      </Grid>
+  constructor(){
+    super();
+    this.state = {
+      posts : [],
+      featuredPost : {
+        title : { rendered : 'This is title' },
+        excerpt : { rendered : 'This is title' }
+      }
+    };
+  }
 
-      <Grid container spacing={40} className={classes.mainGrid}>
-        <BlogContent classes={classes} posts={posts} />
-        <Siderbar classes={classes} archives={archives} social={social} />
-      </Grid>
-      
-    </React.Fragment>
-  );
+  componentDidMount(){
+    fetch('http://localhost/techblog-admin/wp-json/wp/v2/posts')
+    .then(response => response.json())
+    .then(posts => this.setState({ posts }) );
+  }
+
+  render(){
+    let featuredPosts = this.state.posts;
+    const classes = this.props.classes;
+    return (
+      <React.Fragment>
+        <BannerPost classes={classes} />
+
+        <Grid container spacing={40} className={classes.cardGrid}>
+          {featuredPosts.map(post => (
+            <FeaturedPost post={post} classes={classes} />
+          ))}
+        </Grid>
+  
+        <Grid container spacing={40} className={classes.mainGrid}>
+          <BlogContent classes={classes} posts={posts} />
+          <Siderbar classes={classes} archives={archives} social={social} />
+        </Grid>
+        
+      </React.Fragment>
+    );
+  }
 }
 
 Blog.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Blog);
+export default Blog;

@@ -4,12 +4,26 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
 export default class BannerPost extends React.Component {
-    constructor(){
+    constructor(props){
         super();
+        this.state = {
+            post : {
+                title : { rendered : 'This is title' },
+                excerpt : { rendered : 'This is title' }
+            }
+        };
     }
+
+    componentDidMount(){
+    
+        fetch('http://localhost/techblog-admin/wp-json/wp/v2/posts/1')
+        .then(response => response.json())
+        .then(post => this.setState({ post }) );
+      }
 
     render(){
         const classes = this.props.classes;
+        
         return (
             // Main featured post
             <Paper className={classes.mainFeaturedPost}>
@@ -17,11 +31,10 @@ export default class BannerPost extends React.Component {
                     <Grid item md={6}>
                         <div className={classes.mainFeaturedPostContent}>
                             <Typography component="h1" variant="h3" color="inherit" gutterBottom>
-                            Title of a longer featured blog post
+                            {this.state.post.title.rendered}
                             </Typography>
                             <Typography variant="h5" color="inherit" paragraph>
-                            Multiple lines of text that form the lede, informing new readers quickly and
-                            efficiently about what&apos;s most interesting in this post&apos;s contents…
+                            {this.state.post.excerpt.rendered}
                             </Typography>
                         </div>
                     </Grid>
