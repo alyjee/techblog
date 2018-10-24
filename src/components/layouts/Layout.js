@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch, Redirect, withRouter } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -14,6 +14,7 @@ import Blog from './../Blog';
 import About from './../About';
 import Contact from './../Contact';
 import Topics from './../Topics';
+import Category from './../Category';
 
 const styles = theme => ({
   layout: {
@@ -136,6 +137,7 @@ function Layout(props) {
                       <Route path="/about" component={About} />
                       <Route path="/contact" component={Contact} />
                       <Route path="/topics" component={Topics} />
+                      <Route path="/categories/:id/:slug" component={Category} />
                     </Switch>
                 </div>
               </main>

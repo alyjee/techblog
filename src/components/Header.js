@@ -46,7 +46,7 @@ export default class Header extends React.Component {
                 <Toolbar variant="dense" className={classes.toolbarSecondary}>
                 {sections.map(section => (
                     <Typography color="inherit" noWrap key={section.id}>
-                        <Link to="/categories" >{section.name}</Link>
+                        <Link to={`/categories/${section.id}/${section.slug}`} >{section.name}</Link>
                     </Typography>
                 ))}
                 </Toolbar>
