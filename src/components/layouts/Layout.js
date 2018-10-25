@@ -3,18 +3,14 @@ import { Route, Switch } from "react-router-dom";
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import post1 from './../blog-post.1.md';
-import post2 from './../blog-post.2.md';
-import post3 from './../blog-post.3.md';
-
 import Header from './../Header';
 import Footer from './../Footer';
-
 import Blog from './../Blog';
 import About from './../About';
 import Contact from './../Contact';
 import Topics from './../Topics';
 import Category from './../Category';
+import Post from './../Post';
 
 const styles = theme => ({
   layout: {
@@ -89,40 +85,6 @@ const sections = [
   'Travel',
 ];
 
-const featuredPosts = [
-  {
-    title: 'Featured post',
-    date: 'Nov 12',
-    description:
-      'This is a wider card with supporting text below as a natural lead-in to additional content.',
-  },
-  {
-    title: 'Post title',
-    date: 'Nov 11',
-    description:
-      'This is a wider card with supporting text below as a natural lead-in to additional content.',
-  },
-];
-
-const posts = [post1, post2, post3];
-
-const archives = [
-  'March 2020',
-  'February 2020',
-  'January 2020',
-  'December 2019',
-  'November 2019',
-  'October 2019',
-  'September 2019',
-  'August 2019',
-  'July 2019',
-  'June 2019',
-  'May 2019',
-  'April 2019',
-];
-
-const social = ['GitHub', 'Twitter', 'Facebook'];
-
 function Layout(props) {
   const { classes } = props;
   return(
@@ -138,6 +100,7 @@ function Layout(props) {
                       <Route path="/contact" component={Contact} />
                       <Route path="/topics" component={Topics} />
                       <Route path="/categories/:id/:slug" component={Category} />
+                      <Route path="/posts/:id/:slug" component={Post} />
                     </Switch>
                 </div>
               </main>

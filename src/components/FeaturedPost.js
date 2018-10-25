@@ -4,7 +4,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import FeaturedPostMedia from './general/FeaturedPostMedia';
 import Typography from '@material-ui/core/Typography';
-import Hidden from '@material-ui/core/Hidden';
+import { Link } from "react-router-dom";
 
 export default class FeaturedPost extends React.Component {
     render(){
@@ -25,7 +25,7 @@ export default class FeaturedPost extends React.Component {
                         {post.excerpt.rendered}
                       </Typography>
                       <Typography variant="subtitle1" color="primary">
-                        Continue reading...
+                        <Link to={`posts/${post.id}/${post.slug}`} >Continue reading...</Link>
                       </Typography>
                     </CardContent>
                   </div>

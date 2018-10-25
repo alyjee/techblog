@@ -11,12 +11,19 @@ export default class Category extends React.Component{
     }
 
     componentDidMount(){
-        console.log(this.props);
         let id = this.props.match.params.id;
-        // let id = 2;
         fetch('http://localhost/techblog-admin/wp-json/wp/v2/posts/?categories='+id)
         .then(response => response.json())
         .then(posts => this.setState({ posts }) );
+    }
+
+    componentWillReceiveProps(nextProps){
+        if(nextProps.match.params.id !== this.props.match.params.id) {
+            let id = nextProps.match.params.id;
+            fetch('http://localhost/techblog-admin/wp-json/wp/v2/posts/?categories='+id)
+            .then(response => response.json())
+            .then(posts => this.setState({ posts }) );
+        }
     }
 
     render(){
@@ -35,7 +42,7 @@ export default class Category extends React.Component{
             <React.Fragment>
                 <Grid container spacing={40} className={classes.cardGrid}>
                     {this.state.posts.map(post => (
-                        <FeaturedPost post={post} classes={classes} />
+                        <FeaturedPost key={post.id} post={post} classes={classes} />
                     ))}
                 </Grid>
             </React.Fragment>

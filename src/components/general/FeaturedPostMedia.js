@@ -13,7 +13,14 @@ export default class FeaturedPostMedia extends React.Component {
     }
 
     componentDidMount(){
-        fetch('http://localhost/techblog-admin/wp-json/wp/v2/media/'+this.state.id)
+        fetch('http://localhost/techblog-admin/wp-json/wp/v2/media/'+this.props.mediaId)
+        .then(response => response.json())
+        .then(media => this.setState({ media }) );
+    }
+
+    componentWillMount(){
+        let id = this.props.mediaId;
+        fetch('http://localhost/techblog-admin/wp-json/wp/v2/media/'+id)
         .then(response => response.json())
         .then(media => this.setState({ media }) );
     }
